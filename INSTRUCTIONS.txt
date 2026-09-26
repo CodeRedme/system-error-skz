@@ -1,0 +1,10 @@
+# Controls fix patch
+
+Overwrite these two files in the root of your existing GitHub/Vercel project:
+
+- `campaign.html`
+- `campaign.js`
+
+Keep them beside the existing `campaign-data.js` and character/background image files. Then commit/push the two replacements; Vercel should redeploy from the repository as usual.
+
+This patch only updates the controls and gameplay input behavior. It does not include the world portrait or intro art files from the earlier character correction.

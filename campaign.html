@@ -17,6 +17,7 @@ body{min-height:100dvh;background:radial-gradient(ellipse at 50% 0%,#172748,#050
 #hud{width:min(1120px,100%);display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:8px;font-family:Pixel,monospace;font-size:9px}
 .hud-box{min-height:40px;padding:9px 10px;background:rgba(7,13,30,.9);border:1px solid #324567;box-shadow:0 0 10px #0008}.hud-box b{color:var(--accent)}
 #objective{width:min(1120px,100%);font-size:19px;color:#d8e9fa;text-align:center;min-height:25px}
+#controls-live{width:min(1120px,100%);padding:8px 12px;text-align:center;font:14px Term,monospace;color:#aeeff1;background:#09152be8;border:1px solid #30466a}
 #stage{position:relative;width:min(1120px,100%);background:#071326;border:3px solid var(--accent);box-shadow:0 0 24px color-mix(in srgb,var(--accent) 33%,transparent);overflow:hidden}
 canvas{display:block;width:100%;height:auto;aspect-ratio:16/10;image-rendering:pixelated;touch-action:none}
 #prompt{position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:6px 10px;background:#050a1dcc;color:#fff;font-size:16px;white-space:nowrap;pointer-events:none;text-shadow:0 0 8px var(--accent)}
@@ -49,6 +50,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:16/10;image-rendering:p
   <header class="topbar"><a href="index.html#select">◀ HUB</a><span id="world-label"></span><div class="top-actions"><button id="pause" class="pixel-btn" type="button">PAUSE</button><a href="index.html#select">EXIT</a></div></header>
   <div id="hud"><div class="hud-box"><b>MISSION</b> <span id="hud-game"></span></div><div class="hud-box"><b>HEALTH</b> <span id="hud-health"></span></div><div class="hud-box"><b>PROGRESS</b> <span id="hud-progress"></span></div><div class="hud-box"><b>TIME</b> <span id="hud-time"></span></div></div>
   <div id="objective"></div>
+  <div id="controls-live" aria-label="Current game controls"></div>
   <section id="stage"><canvas id="game" width="960" height="600" tabindex="0" aria-label="Game canvas"></canvas><div id="prompt"></div></section>
   <nav id="mobile-controls" aria-label="Touch controls"><button data-key="left">◀</button><button data-key="right">▶</button><button data-key="up">▲</button><button data-key="down">▼</button><button data-key="jump">JUMP</button><button data-key="action">ACTION</button><button data-key="phase">PHASE</button><button data-key="fire">FIRE</button></nav>
 </div>
