@@ -206,6 +206,7 @@
     <div class="title-actions">
       <button class="btn primary blink" id="start">Press start</button>
       <a class="btn neon" href="story-mode.html" style="text-decoration:none">Story map</a>
+      <a class="btn neon" href="?test=1#select" style="text-decoration:none">Creator test · selected games open</a>
     </div>
     <p class="keyhint">[PRESS ENTER TO START]</p>
     <p class="fine">Unofficial fan project. Not affiliated with JYP Entertainment or Stray Kids.</p>
@@ -216,6 +217,7 @@
     <header class="top">
       <button class="btn ghost" data-back>Back</button>
       <p class="crumb">Choose a world</p>
+      <button class="btn ghost" id="test-exit" hidden>Exit creator test</button>
     </header>
     <div class="stage">
       <div class="switch">
@@ -294,11 +296,14 @@ const ORDER = ['bangchan','leeknow','changbin','hyunjin','han','felix','seungmin
 const FILE_SWAP = { ate:{}, hop:{}, doit:{}, karma:{} };
 
 const GAMES = window.SKZCampaignData.worlds.map(w => ({ ...w, href:'campaign.html', cost:0, status:'playable' }));
-const TITLE_BG = 'scene-narrative.webp';
+const TESTABLE = new Set(['hellevator-shaft','district9-wall-breaker','miroh-maze-runner','yellow-wood-stealth','gods-menu-rush','back-door-dash','shadow-forest-hunt','chk-chk-target-rush','quantum-dimension-switcher','titan-mech-rampage','karma-arena-clash','do-it-power-charge']);
+const TEST_MODE = new URLSearchParams(location.search).get('test') === '1' || sessionStorage.getItem('skz.creatorTest') === '1';
+if(new URLSearchParams(location.search).get('test') === '1') sessionStorage.setItem('skz.creatorTest','1');
+const TITLE_BG = 'bg-home-rooftop.png';
 /* ====================================================== */
 
 let booted = false;
-const S = { screen:'title', gi:0, mi:0, chars:{}, muted:false };
+const S = { screen:'title', gi:0, mi:0, chars:{}, muted:false, testMode:TEST_MODE };
 const wallet = {
   get(){ try{ return Math.max(0, +localStorage.getItem('skz.points') || 0); }catch(e){ return 0; } },
   spend(n){ if(this.get() < n) return false; try{ localStorage.setItem('skz.points', String(this.get() - n)); }catch(e){} return true; },
@@ -324,13 +329,14 @@ const campaignProgress = {
   read(){ try{return JSON.parse(localStorage.getItem('skz.campaign.cleared')||'{}');}catch(e){return {};} },
   done(id){ const d=this.read(); return Array.isArray(d) ? d.includes(id) : !!d[id]; },
   unlocked(wi,mi){
+    if(S.testMode) return TESTABLE.has(GAMES[wi].modes[mi].id);
     if(wi===0 && mi===0) return true;
     if(mi>0) return this.done(GAMES[wi].modes[mi-1].id);
     return wi>0 && this.done(GAMES[wi-1].modes[2].id);
   },
   firstOpen(wi){ const i=GAMES[wi].modes.findIndex((_,mi)=>this.unlocked(wi,mi)); return Math.max(0,i); }
 };
-const charSrc = (gid, cid) => { const wi=GAMES.findIndex(x=>x.id===gid); return `chars-w${wi+1}-${cid}.webp`; };
+const charSrc = (gid, cid) => { const wi=GAMES.findIndex(x=>x.id===gid), group=GAMES[wi].modes?.[S.mi]?.artGroup; return group ? `chars-${group.replace('world','w')}-${cid}.webp` : `chars-w${wi+1}-${cid}.webp`; };
 
 /* ---------- sound (tiny square-wave blips, no files) ---------- */
 let ac = null;
@@ -386,6 +392,7 @@ function show(name){
   if(name === 'title'){ setBg(TITLE_BG); if(booted) $('#start').focus({preventScroll:true}); }
   if(name === 'select'){ renderSelect(false); $('#pick-game').focus({preventScroll:true}); }
   if(name === 'chars'){ renderChars(); }
+  $('#test-exit').hidden = !(S.testMode && name === 'select');
   paintWallet();
 }
 
@@ -530,6 +537,7 @@ function launch(){
       fill.style.width = '100%';
       const q = new URLSearchParams({ game:g.id, char:cid });
       if(g.modes) q.set('mode', g.modes[S.mi].id);
+      if(S.testMode) q.set('test','1');
       bootTimers.push(setTimeout(() => { location.href = href + '?' + q.toString(); }, fast ? 0 : 450));
     } else {
       term.textContent += '\n> ERROR: world not found';
@@ -556,6 +564,7 @@ function startGame(){
   }, 340);
 }
 $('#start').addEventListener('click', startGame);
+$('#test-exit').addEventListener('click', () => { sessionStorage.removeItem('skz.creatorTest'); S.testMode=false; S.gi=0; S.mi=0; renderSelect(false); show('select'); });
 $('#prev').addEventListener('click', () => cycle(-1));
 $('#next').addEventListener('click', () => cycle(1));
 $('#pick-game').addEventListener('click', () => { sfx.ok(); show('chars'); });

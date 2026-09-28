@@ -1,0 +1,9 @@
+SYSTEM ERROR — selected game update (3 patch parts)
+
+These are PATCH archives, not full project downloads. They contain only changed/new files.
+
+1. Extract all three ZIP files into the root of the existing GitHub project, keeping the files together. Allow overwrite when asked. Do not upload the ZIP files as nested folders.
+2. Upload the extracted files and folders to the same repository root in GitHub. Part 1 includes the index.html and campaign code; parts 2 and 3 add album character sprites and backgrounds.
+3. Open the site and choose “Creator test · selected games open” on the title screen. The selected prototypes open directly across worlds; unimplemented campaign games remain locked in Creator Test. Normal campaign progression remains available outside Creator Test.
+
+The three archives are disjoint. ZIP structure checks passed. JavaScript syntax and static paths were checked; gameplay has not yet been manually exercised in a browser.

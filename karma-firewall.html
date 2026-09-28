@@ -143,9 +143,9 @@ function roundEnd(ok){
   if(ok){
     sfx.win(); const bump2 = SKZ.meter.add(10); meter.refresh(); SKZ.pointsBanner(stage, bump2.earned);
     setTimeout(() => {
-      if(last) SKZ.overlay(stage, { title:'Firewall down', lines:['You broke through all five walls.', 'The SYSTEM meter is climbing.'],
+      if(last){ SKZ.clearCampaignMode(); SKZ.overlay(stage, { title:'Firewall down', lines:['You broke through all five walls.', 'The SYSTEM meter is climbing.'],
         buttons:[{ label:'Play again', primary:true, fn:() => { G.level = 0; G.coins = 0; begin(); } }, { label:'Menu', href:'index.html#select', small:true }] });
-      else SKZ.overlay(stage, { title:'Breach', lines:[G.hits + ' of ' + SHOTS + ' shots landed.', 'The next wall is faster.'],
+      }else SKZ.overlay(stage, { title:'Breach', lines:[G.hits + ' of ' + SHOTS + ' shots landed.', 'The next wall is faster.'],
         buttons:[{ label:'Next wall', primary:true, fn:() => { G.level++; begin(); } }] });
     }, 600);
   }else{

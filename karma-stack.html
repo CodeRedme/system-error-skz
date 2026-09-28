@@ -131,6 +131,7 @@ function levelUp(){
   const done = G.level >= GOALS.length - 1;
   setTimeout(() => {
     if(done){
+      SKZ.clearCampaignMode();
       SKZ.overlay(stage, { title:'Every memory saved', lines:['You stacked ' + levelCfg().goal + ' and held the line.', 'The SYSTEM meter is climbing.'],
         buttons:[{ label:'Play again', primary:true, fn:() => { G.level = 0; G.lives = 3; G.coins = 0; begin(); } }, { label:'Menu', href:'index.html#select', small:true }] });
     }else{

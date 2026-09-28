@@ -208,5 +208,13 @@ window.SKZ = (function(){
     return { stop(){ on = false; } };
   }
 
-  return { q, IDS, NAMES, me, debug, portrait, fit, beep, sfx, points, meter, meterUI, pointsBanner, overlay, results, hideOverlay, popText, shake, burst, loop };
+  function clearCampaignMode(){
+    const id = q.get('mode'); if(!id) return;
+    try{
+      const old = JSON.parse(localStorage.getItem('skz.campaign.cleared') || '[]');
+      const cleared = new Set(Array.isArray(old) ? old : Object.keys(old).filter(k => old[k]));
+      cleared.add(id); localStorage.setItem('skz.campaign.cleared', JSON.stringify([...cleared]));
+    }catch(e){}
+  }
+  return { q, IDS, NAMES, me, debug, portrait, fit, beep, sfx, points, meter, meterUI, pointsBanner, overlay, results, hideOverlay, popText, shake, burst, loop, clearCampaignMode };
 })();

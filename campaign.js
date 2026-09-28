@@ -4,7 +4,7 @@ const D=window.SKZCampaignData, p=new URLSearchParams(location.search), worldId=
 document.documentElement.style.setProperty('--accent',W.accent);document.title=M.name+' | SYSTEM ERROR';
 const $=id=>document.getElementById(id), canvas=$('game'),c=canvas.getContext('2d'),intro=$('intro'),result=$('result'),keys=new Set(),images={};
 const load=(key,src)=>{const i=new Image();i.src=src;images[key]=i;return i};
-const bg=load('bg',M.bg),mini=load('mini',`chars-w${wi+1}-${member}.webp`);load('hero',`member-art-${member}.webp`);load('roster',`roster-world-${wi+1}.webp`);
+const bg=load('bg',M.bg),artGroup=M.artGroup?M.artGroup.replace('world','w'):`w${wi+1}`,mini=load('mini',`chars-${artGroup}-${member}.webp`);mini.onerror=()=>{mini.onerror=null;mini.src=`chars-w${wi+1}-${member}.webp`};load('hero',`member-art-${member}.webp`);load('roster',`roster-world-${wi+1}.webp`);
 $('world-label').textContent=W.name;$('hud-game').textContent=M.name;$('objective').textContent=M.objective;$('controls-live').textContent='CONTROLS · '+M.controls;$('intro-title').textContent=W.name;$('intro-member').textContent=member.toUpperCase();$('intro-goal').textContent=M.objective;$('intro-controls').textContent=M.controls;
 const hero=$('hero-art');hero.src=`member-art-${member}.webp`;$('world-echo').remove();$('roster-art').src=`roster-world-${wi+1}.webp`;
 const S={x:110,y:440,vx:0,vy:0,ground:false,health:3,score:0,t:0,done:false,paused:false,phase:0,items:[],shots:[],enemies:[],platforms:[],lane:1,alert:0,combo:0,beat:0,gravity:1,fuel:100,charge:0,round:0,seq:[],seqAt:0,seqInput:[],last:0,dashAt:-10,lastInput:-10,beatAt:0,nextFlame:0,distance:0,selectedHeart:0,carry:0,dashUntil:0};

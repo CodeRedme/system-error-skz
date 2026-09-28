@@ -240,6 +240,7 @@ function levelClear(){
   const last = S.level >= LEVELS.length - 1;
   setTimeout(() => {
     if(last){
+      SKZ.clearCampaignMode();
       SKZ.overlay(stage, { title:'Color is back', lines:['You found everyone in every crowd.', 'The SYSTEM lost this round.'], stars,
         buttons:[{ label:'Play again', primary:true, fn:() => { S.level = 0; S.stars = 0; S.hints = 3; start(); } }, { label:'Menu', href:'index.html#select', small:true }] });
     }else{
