@@ -10,16 +10,19 @@
 :root{--accent:#35e0d0;--ink:#eef5ff;--bg:#071326}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172748,var(--bg) 70%);color:var(--ink);font:20px term,monospace;min-height:100vh;display:grid;place-items:center;padding:12px}
 main{width:min(1100px,100%);display:grid;gap:10px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.top h1{font:clamp(10px,2vw,16px) pixel,monospace;color:var(--accent);margin:0}.top a,.top button,.touch button{background:#101b38;color:var(--ink);border:2px solid #405879;padding:10px 14px;font:12px pixel,monospace;text-decoration:none;cursor:pointer}.brief{display:flex;justify-content:space-between;gap:12px;background:#09152b;border:1px solid #30466a;padding:8px 12px;font-size:22px}.brief strong{color:var(--accent)}#scene{display:block;width:100%;height:auto;aspect-ratio:16/10;border:3px solid var(--accent);background:#081326;image-rendering:pixelated;touch-action:none}.bottom{display:flex;justify-content:space-between;gap:10px;color:#a9bfd8;font-size:18px}.touch{display:none;gap:8px;justify-content:center}.touch button{min-width:68px;min-height:50px}
 @media(max-width:700px){body{padding:8px}.top h1{font-size:10px}.brief{font-size:18px}.touch{display:flex}.bottom{font-size:16px}}
+
+#rotate-hint{display:none;position:fixed;z-index:100;left:50%;bottom:12px;transform:translateX(-50%);padding:8px 12px;background:#071326e8;border:1px solid var(--accent);color:#fff;font:12px monospace;text-align:center;pointer-events:none}@media(max-width:700px) and (orientation:portrait){#rotate-hint{display:block}}
 </style>
 </head>
 <body>
 <main>
-  <header class="top"><a id="back" href="index.html?test=1#select">◀ HUB</a><h1 id="title">SYSTEM ERROR ARCADE</h1><button id="restart">RESTART</button></header>
+  <header class="top"><a id="back" href="index.html#select">◀ HUB</a><h1 id="title">SYSTEM ERROR ARCADE</h1><button id="pause" type="button">PAUSE</button><button id="restart">RESTART</button></header>
   <div class="brief"><span><strong id="mode-label">MISSION</strong> <span id="score">0</span></span><span id="clock">READY</span></div>
   <canvas id="scene" width="960" height="600" tabindex="0" aria-label="Arcade game"></canvas>
   <nav class="touch" aria-label="Touch controls"><button data-k="left">◀</button><button data-k="jump">JUMP</button><button data-k="right">▶</button><button data-k="action">DROP / FIRE</button></nav>
   <footer class="bottom"><span id="help"></span><span>ESC pauses · R restarts</span></footer>
 </main>
 <script src="retro-arcade.js"></script>
+<div id="rotate-hint" role="note">ROTATE YOUR PHONE FOR LANDSCAPE PLAY</div>
 </body>
 </html>
