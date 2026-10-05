@@ -43,11 +43,13 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:16/10;image-rendering:p
 #toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);padding:8px 12px;background:#050916eF;border:1px solid var(--accent);font-size:18px;z-index:20;opacity:0;transition:opacity .16s;pointer-events:none}#toast.show{opacity:1}
 @media(max-width:700px){#app{padding:8px 8px 18px}.topbar{font-size:8px}.topbar a,.pixel-btn{padding:8px}.topbar .top-actions{gap:4px}#hud{grid-template-columns:repeat(2,1fr);font-size:8px}.hud-box{min-height:34px;padding:7px}#objective{font-size:17px}.card{grid-template-columns:1fr;gap:12px;min-height:auto;padding:14px}.art-frame{height:38dvh;min-height:210px}.intro-copy h1{font-size:16px;margin:8px 0}.intro-copy h2{font-size:21px;margin:0 0 6px}.intro-copy p{font-size:18px;margin:5px 0}.intro-copy .controls-copy{font-size:16px}.buttons{margin-top:10px}.buttons .pixel-btn{font-size:8px;padding:12px}.spark{display:none}#mobile-controls{display:flex}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+
+#rotate-hint{display:none;position:fixed;z-index:100;left:50%;bottom:12px;transform:translateX(-50%);padding:8px 12px;background:#071326e8;border:1px solid var(--accent);color:#fff;font:12px monospace;text-align:center;pointer-events:none}@media(max-width:700px) and (orientation:portrait){#rotate-hint{display:block}}
 </style>
 </head>
 <body>
 <div id="app">
-  <header class="topbar"><a href="index.html#select">◀ HUB</a><span id="world-label"></span><div class="top-actions"><button id="pause" class="pixel-btn" type="button">PAUSE</button><a href="index.html#select">EXIT</a></div></header>
+  <header class="topbar"><a href="index.html#select">◀ HUB</a><span id="world-label"></span><div class="top-actions"><button id="pause" class="pixel-btn" type="button">PAUSE</button><a href="index.html#select">BACK</a></div></header>
   <div id="hud"><div class="hud-box"><b>MISSION</b> <span id="hud-game"></span></div><div class="hud-box"><b>HEALTH</b> <span id="hud-health"></span></div><div class="hud-box"><b>PROGRESS</b> <span id="hud-progress"></span></div><div class="hud-box"><b>TIME</b> <span id="hud-time"></span></div></div>
   <div id="objective"></div>
   <div id="controls-live" aria-label="Current game controls"></div>
@@ -58,4 +60,5 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:16/10;image-rendering:p
 <div id="result" hidden role="dialog" aria-modal="true"><div class="result-card"><div class="eyebrow" id="result-kicker">MISSION RESULT</div><h1 id="result-title"></h1><div class="grade" id="result-grade"></div><p id="result-copy"></p><div class="final-rosters" id="final-rosters" hidden><img alt="Final roster art 8"><img alt="Final roster art 9"></div><div class="buttons" style="justify-content:center"><button id="retry" class="pixel-btn" type="button">RETRY</button><button id="continue" class="pixel-btn" type="button">CONTINUE</button><a class="pixel-btn secondary" href="index.html#select">HUB</a></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="campaign-data.js"></script><script src="campaign.js"></script>
+<div id="rotate-hint" role="note">ROTATE YOUR PHONE FOR LANDSCAPE PLAY</div>
 </body></html>
