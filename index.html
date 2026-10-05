@@ -190,6 +190,9 @@
     .charwrap{ flex-direction:row; } .preview{ width:min(30vw,200px); } .grid{ width:min(56vw,480px); }
   }
   @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+
+  #rotate-hint{display:none;position:fixed;z-index:100;left:50%;bottom:14px;transform:translateX(-50%);padding:8px 12px;background:#071326df;border:1px solid var(--cyan);color:#fff;font:11px var(--px),monospace;text-align:center;pointer-events:none}
+  @media(max-width:760px) and (orientation:portrait){#rotate-hint{display:block}}
 </style>
 </head>
 <body data-screen="title">
@@ -206,7 +209,6 @@
     <div class="title-actions">
       <button class="btn primary blink" id="start">Press start</button>
       <a class="btn neon" href="story-mode.html" style="text-decoration:none">Story map</a>
-      <a class="btn neon" href="?test=1#select" style="text-decoration:none">Creator test · selected games open</a>
     </div>
     <p class="keyhint">[PRESS ENTER TO START]</p>
     <p class="fine">Unofficial fan project. Not affiliated with JYP Entertainment or Stray Kids.</p>
@@ -299,7 +301,7 @@ const GAMES = window.SKZCampaignData.worlds.map(w => ({ ...w, href:'campaign.htm
 const TESTABLE = new Set(['hellevator-shaft','district9-wall-breaker','miroh-maze-runner','yellow-wood-stealth','gods-menu-rush','back-door-dash','shadow-forest-hunt','chk-chk-target-rush','quantum-dimension-switcher','titan-mech-rampage','karma-arena-clash','do-it-power-charge']);
 const TEST_MODE = new URLSearchParams(location.search).get('test') === '1' || sessionStorage.getItem('skz.creatorTest') === '1';
 if(new URLSearchParams(location.search).get('test') === '1') sessionStorage.setItem('skz.creatorTest','1');
-const TITLE_BG = 'bg-home-rooftop.png';
+const TITLE_BG = 'bg-menu.webp';
 /* ====================================================== */
 
 let booted = false;
@@ -554,6 +556,7 @@ buildTiles();
 let starting = false;
 function startGame(){
   if(starting) return;
+  try{screen.orientation?.lock?.('landscape')?.catch(()=>{})}catch{}
   starting = true; booted = true; sfx.ok();
   const app = $('#app');
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ show('select'); starting = false; return; }
@@ -619,5 +622,6 @@ if(location.hash === '#select'){ booted = true; history.replaceState(null, '', l
 else show('title');
 })();
 </script>
+<div id="rotate-hint" role="note">ROTATE YOUR PHONE FOR LANDSCAPE PLAY</div>
 </body>
 </html>
