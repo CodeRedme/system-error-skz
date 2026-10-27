@@ -9,10 +9,12 @@ window.SKZ = (function(){
 
   document.addEventListener('dragstart', e => e.preventDefault());   // no ghost-image dragging while aiming
   const WORLD_SHEET = { ate:5, doit:7, hop:6, karma:6 };
-  const portrait = (world, id) => `chars-w${WORLD_SHEET[world] || 1}-${id}.webp`;
+  const portrait = (world, id) => ['ate','doit','hop','karma'].includes(world) ? `chars-${world}-${id}.webp` : `chars-w${WORLD_SHEET[world] || 1}-${id}.webp`;
 
   /* fit a 9:16 stage inside the window; 1em inside the stage = 10 game units */
   function fit(stage){
+    let hint = document.getElementById('phone-landscape-hint');
+    if(!hint){ const style=document.createElement('style'); style.textContent='@media(max-width:760px) and (orientation:portrait){#phone-landscape-hint{display:block!important}}'; document.head.appendChild(style); hint=document.createElement('div'); hint.id='phone-landscape-hint'; hint.textContent='ROTATE YOUR PHONE FOR LANDSCAPE PLAY'; hint.style.cssText='display:none;position:fixed;z-index:9999;left:50%;bottom:12px;transform:translateX(-50%);padding:8px 12px;background:#071326e8;border:1px solid #4fd8ff;color:#fff;font:12px monospace;white-space:nowrap;pointer-events:none'; document.body.appendChild(hint); }
     const w = Math.min(window.innerWidth, window.innerHeight * 9 / 16);
     stage.style.width = w + 'px';
     stage.style.height = (w * 16 / 9) + 'px';
@@ -105,7 +107,7 @@ window.SKZ = (function(){
       const el = document.createElement(b.href ? 'a' : 'button');
       el.className = 'btn' + (b.primary ? ' primary' : '') + (b.small ? ' small' : '');
       el.textContent = b.label;
-      if(b.href) el.href = b.href; else el.addEventListener('click', () => { sfx.tap(); b.fn && b.fn(); });
+      if(b.href) el.href = b.href; else el.addEventListener('click', () => { try{screen.orientation?.lock?.('landscape')?.catch(()=>{})}catch(e){} sfx.tap(); b.fn && b.fn(); });
       row.appendChild(el);
       if(i === 0) setTimeout(() => el.focus({ preventScroll:true }), 30);
     });
@@ -183,7 +185,7 @@ window.SKZ = (function(){
       const el = document.createElement(b.href ? 'a' : 'button');
       el.className = 'btn' + (b.primary ? ' primary' : '') + (b.small ? ' small' : '');
       el.textContent = b.label;
-      if(b.href) el.href = b.href; else el.addEventListener('click', () => { sfx.tap(); b.fn && b.fn(); });
+      if(b.href) el.href = b.href; else el.addEventListener('click', () => { try{screen.orientation?.lock?.('landscape')?.catch(()=>{})}catch(e){} sfx.tap(); b.fn && b.fn(); });
       row.appendChild(el);
       if(i === 0) setTimeout(() => el.focus({ preventScroll:true }), 30);
     });
